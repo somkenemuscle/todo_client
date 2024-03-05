@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import { Axios } from 'axios';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [todos, setTodos] = useState([]);
+  //fetching data-tweets from json api
+  useEffect(() => {
+    async function getTodo() {
+      try {
+        const res = await axios.get("https://localhost:4000")
+        setTodos(res.data)
+      } catch (error) {
+        console.error("Error fetching todos:", error);
+      }
+    }
+    getTodo()
+  }, []);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {todos.map((todo : any, i) => (
+        <h1>{todo.title}</h1>
+      ))}
     </div>
   );
 }
