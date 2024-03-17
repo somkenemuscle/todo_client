@@ -60,16 +60,20 @@ function App() {
 
   return (
     <div className="App">
+      <h3>Todo- List</h3>
       <form onSubmit={handleSubmit}>
-        <input onChange={handleChange} value={inputValue} type="text" placeholder='input todo' required />
+        <input onChange={handleChange} value={inputValue} type="text" placeholder='Add a new todo' required />
         <button type="submit">+</button>
       </form>
 
-      {todos.map((todo, i) => (
-        <ul key={todo.id}>
-          <li>{todo.task} <span onClick={() => handleDelete(todo.id)}>delete</span></li>
-        </ul>
-      ))}
+      <section>
+        {todos.map((todo, i) => (
+          <ul key={todo.id}>
+            <li>{todo.task} <span onClick={() => handleDelete(todo.id)}>delete</span></li>
+          </ul>
+        ))}
+      </section>
+
     </div>
   );
 }

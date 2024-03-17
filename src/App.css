@@ -1,5 +1,42 @@
-body{
+body {
+    margin-top: 6%;
     background-color: #151b29;
     color: white;
     font-family: 'Montserrat', sans-serif;
+}
+
+h3 {
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+input {
+    border: none;
+    background-color: #151b29;
+    outline: none;
+    color: white;
+    padding: 1% 1%;
+    font-family: 'Montserrat', sans-serif;
+    width: 30%;
+}
+
+button {
+    background-color: #151b29;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+ul:hover {
+    cursor: pointer;
 }
