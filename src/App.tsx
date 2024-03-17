@@ -1,28 +1,74 @@
 import './App.css';
 import axios from 'axios';
-import { Axios } from 'axios';
 import { useEffect, useState } from 'react';
 
+// Define an interface for the todo object
+interface Todo {
+  id: number;
+  task: string;
+}
+
 function App() {
-  const [todos, setTodos] = useState([]);
-  //fetching data-tweets from json api
+  //use state reference the interface of todo
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [inputValue, setInputValue] = useState<string>('');
+
+  //Get all todos
   useEffect(() => {
     async function getTodo() {
       try {
-        const res = await axios.get("https://localhost:4000")
-        setTodos(res.data)
+        const res = await axios.get("http://localhost:4000/");
+        setTodos(res.data);
       } catch (error) {
         console.error("Error fetching todos:", error);
       }
     }
-    getTodo()
+    getTodo();
   }, []);
 
+  //For the functions we determine the type of event that is to be referenced 
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    try {
+      e.preventDefault(); // Prevent default form submission behavior
+      await axios.post("http://localhost:4000/add", { task: inputValue });
+      // Clear the input value after successful form submission
+      setInputValue('');
+      //get all todos again
+      const res = await axios.get("http://localhost:4000/");
+      setTodos(res.data);
+    } catch (error) {
+      console.log('error adding todo :', error)
+    }
+  };
+
+  //Handle change from input
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value);
+  }
+
+  //Handle delete from input
+  async function handleDelete(id: number) {
+    try {
+      await axios.delete(`http://localhost:4000/delete/${id}`);
+      //get all todos and render them
+      const res = await axios.get("http://localhost:4000/");
+      setTodos(res.data);
+    } catch (error) {
+      console.log('error adding todo :', error)
+    }
+  }
 
   return (
     <div className="App">
-      {todos.map((todo : any, i) => (
-        <h1>{todo.title}</h1>
+      <form onSubmit={handleSubmit}>
+        <input onChange={handleChange} value={inputValue} type="text" placeholder='input todo' required />
+        <button type="submit">+</button>
+      </form>
+
+      {todos.map((todo, i) => (
+        <ul key={todo.id}>
+          <li>{todo.task} <span onClick={() => handleDelete(todo.id)}>delete</span></li>
+        </ul>
       ))}
     </div>
   );
