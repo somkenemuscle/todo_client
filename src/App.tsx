@@ -68,9 +68,7 @@ function App() {
 
       <section>
         {todos.map((todo, i) => (
-          <ul key={todo.id}>
-            <li>{todo.task} <span onClick={() => handleDelete(todo.id)}>delete</span></li>
-          </ul>
+          <h4 key={todo.id}>- {todo.task} <span onClick={() => handleDelete(todo.id)}>delete</span></h4>
         ))}
       </section>
 
