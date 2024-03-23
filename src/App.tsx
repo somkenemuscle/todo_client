@@ -37,7 +37,7 @@ function App() {
       const res = await axios.get("http://localhost:4000/");
       setTodos(res.data);
     } catch (error) {
-      console.log('error adding todo :', error)
+      console.log('error adding a todo :', error)
     }
   };
 
