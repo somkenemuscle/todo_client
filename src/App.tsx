@@ -20,7 +20,7 @@ function App() {
         const res = await axios.get("http://localhost:4000/");
         setTodos(res.data);
       } catch (error) {
-        console.error("Error fetching todos:", error);
+        console.error("error fetching todos:", error);
       }
     }
     getTodo();
